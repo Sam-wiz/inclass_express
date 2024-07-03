@@ -34,8 +34,19 @@ let courses = [
   }
 ];
 
+
+function mw(req, res, next) {
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const hostname = req.hostname;
+    const date = new Date();
+
+    console.log(`IP: ${ip}, Hostname: ${hostname}, Date: ${date}`);
+    next();
+}
+
 // Middleware to parse JSON bodies
 app.use(express.json());
+app.use(mw);
 
 app.get('/courses', (req, res) => {
   res.json(courses);
