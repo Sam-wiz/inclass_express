@@ -1,22 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "idk",
-    "description": "Description for course 1",
-    "videos": [
-      {
-        "id": 1,
-        "title": "Video 1",
-        "url": "https://www.example.com/video1.mp4"
-      },
-      {
-        "id": 2,
-        "title": "Video 2",
-        "url": "https://www.example.com/video2.mp4"
-      }
-    ]
-  },
-  {
     "id": 2,
     "name": "Course 2",
     "description": "Description for course 2",
