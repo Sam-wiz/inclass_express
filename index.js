@@ -18,7 +18,6 @@
 // }
 
 // // Middleware to parse JSON bodies
-// app.use(express.json());
 // app.use(mw);
 
 // app.get('/courses', (req, res) => {
@@ -79,13 +78,55 @@ const app = express();
 const PORT = 6969;
 const mongoose = require('mongoose');
 
+// Middleware to parse JSON bodies
+app.use(express.json());
 
-mongoose.connect("mongodb+srv://Sam-wiz:x1IA8Qlq77aIv35E@cluster1.dtxhy8j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1").then(() => {
-  console.log("connected to db")
-})
+mongoose.connect("mongodb+srv://Sam-wiz:x1IA8Qlq77aIv35E@cluster1.dtxhy8j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
+  .then(() => {
+    console.log("connected to db");
+  })
   .catch((err) => {
-    console.log("Failed",err)
+    console.log("Failed", err);
   });
+
+const productSchema = new mongoose.Schema({
+  product_name: {
+    type: String,
+    required: true
+  },
+  product_price: {
+    type: String,
+    required: true
+  },
+  isInStock: {
+    type: Boolean,
+    required: true
+  },
+  Category: {
+    type: String,
+    required: true
+  }
+});
+
+const Product = mongoose.model('Product', productSchema);
+
+app.post('/api/products', async (req, res) => {
+  const body = req.body;
+  console.log("Request Body:", body);
+  try {
+    const product = await Product.create({
+      product_name: body.product_name,
+      product_price: body.product_price,
+      isInStock: body.isInStock,
+      Category: body.Category
+    });
+    console.log("Created Product:", product);
+    return res.status(201).json({ message: "Product Created", product });
+  } catch (err) {
+    console.error(err);
+    return res.status(400).json({ error: err.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
