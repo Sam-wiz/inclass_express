@@ -78,7 +78,6 @@ const app = express();
 const PORT = 6969;
 const mongoose = require('mongoose');
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
 mongoose.connect("mongodb+srv://Sam-wiz:x1IA8Qlq77aIv35E@cluster1.dtxhy8j.mongodb.net/?retryWrites=true&w=majority&appName=Cluster1")
